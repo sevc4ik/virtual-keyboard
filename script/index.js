@@ -105,7 +105,14 @@ function langHandler(event) {
     changeLayout(nextLang, textCase);
     pressedKeys.length = 0;
     IsEng = !IsEng;
+    localStorage.setItem('lang', IsEng);
   }
 }
+
+setTimeout(window.onload = function changeLang() {
+  if (localStorage.lang === 'false') {
+    changeLayout(keyboardObjRu, 'caseDown');
+  }
+}, 100);
 
 document.addEventListener('keyup', langHandler);

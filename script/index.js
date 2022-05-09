@@ -148,3 +148,58 @@ function capsHandler(event) {
 
 document.addEventListener('keyup', capsHandler);
 keyboardNode.addEventListener('mouseup', capsHandler);
+
+// Shift
+
+function shiftHandler(event) {
+  const currLang = IsEng ? keyboardObjEng : keyboardObjRu;
+  const shiftCase = IsCaps ? 'shiftCaps' : 'shift';
+  const textCase = IsCaps ? 'caseDown' : 'caseUp';
+
+  if (event.type === 'keydown') {
+    if (IsShift) {
+      return;
+    }
+
+    if (event.code.match('ShiftLeft|ShiftRight')) {
+      changeLayout(currLang, shiftCase);
+      IsShift = true;
+      IsCaps = !IsCaps;
+    }
+  }
+
+  if (event.type === 'keyup') {
+    if (event.code.match('ShiftLeft|ShiftRight')) {
+      changeLayout(currLang, textCase);
+      IsShift = false;
+      IsCaps = !IsCaps;
+    }
+  }
+
+  if (event.type === 'mousedown') {
+    const targetKey = event.target.closest('.key');
+    if (targetKey) {
+      if (targetKey.classList.contains('ShiftLeft') || targetKey.classList.contains('ShiftRight')) {
+        changeLayout(currLang, shiftCase);
+        IsShift = true;
+        IsCaps = !IsCaps;
+      }
+    }
+  }
+
+  if (event.type === 'mouseup') {
+    const targetKey = event.target.closest('.key');
+    if (targetKey) {
+      if (targetKey.classList.contains('ShiftLeft') || targetKey.classList.contains('ShiftRight')) {
+        changeLayout(currLang, textCase);
+        IsShift = false;
+        IsCaps = !IsCaps;
+      }
+    }
+  }
+}
+
+document.addEventListener('keydown', shiftHandler);
+document.addEventListener('keyup', shiftHandler);
+keyboardNode.addEventListener('mousedown', shiftHandler);
+keyboardNode.addEventListener('mouseup', shiftHandler);

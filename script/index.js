@@ -1,7 +1,10 @@
 import {
-  keyboard, keyboardObjEng,
+  keyboard, layoutKeys, notInputKeys, keyboardObjEng, keyboardObjRu,
 } from './data.js';
 
+let IsEng;
+let IsCaps;
+let IsShift;
 // init
 function init() {
   document.querySelector('body').innerHTML = `
@@ -77,3 +80,32 @@ keyboardNode.addEventListener('mousedown', animationHandler);
 keyboardNode.addEventListener('mouseup', animationHandler);
 document.addEventListener('keydown', animationHandler);
 document.addEventListener('keyup', animationHandler);
+
+// Register and language
+
+function changeLayout(keObj, caseKey) {
+  key.forEach((el) => {
+    const keyId = el.getAttribute('data');
+    const keyCurrent = el;
+    keyCurrent.innerHTML = keObj[keyId][caseKey];
+  });
+}
+
+const pressedKeys = [];
+
+function langHandler(event) {
+  if (layoutKeys.includes(event.code)) {
+    pressedKeys.push(event.code);
+  }
+  const switchLang = (pressedKeys.indexOf('AltLeft') !== -1 && pressedKeys.indexOf('ShiftLeft') !== -1);
+  const nextLang = IsEng ? keyboardObjRu : keyboardObjEng;
+  const textCase = IsCaps ? 'caseUp' : 'caseDown';
+
+  if (switchLang) {
+    changeLayout(nextLang, textCase);
+    pressedKeys.length = 0;
+    IsEng = !IsEng;
+  }
+}
+
+document.addEventListener('keyup', langHandler);

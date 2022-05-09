@@ -211,7 +211,7 @@ const textArea = document.querySelector('textarea');
 function inputKeyboardHandler(event) {
   event.preventDefault();
   let newContent = '';
-  let keyText;
+  let keyText = '';
   const keyCode = event.code;
 
   key.forEach((elem) => {

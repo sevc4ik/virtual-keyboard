@@ -203,3 +203,57 @@ document.addEventListener('keydown', shiftHandler);
 document.addEventListener('keyup', shiftHandler);
 keyboardNode.addEventListener('mousedown', shiftHandler);
 keyboardNode.addEventListener('mouseup', shiftHandler);
+
+// Input by keyboard
+
+const textArea = document.querySelector('textarea');
+
+function inputKeyboardHandler(event) {
+  event.preventDefault();
+  let newContent = '';
+  let keyText;
+  const keyCode = event.code;
+
+  key.forEach((elem) => {
+    if (elem.getAttribute('data') === keyCode) {
+      keyText = elem.innerText;
+    }
+  });
+
+  if (!notInputKeys.includes(event.code)) {
+    switch (keyCode) {
+      case 'Tab':
+        newContent = '\t';
+        break;
+      case 'Space':
+        newContent = ' ';
+        break;
+      case 'ArrowLeft':
+        if (textArea.selectionStart !== 0) { textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd - 1, 'end'); }
+        break;
+      case 'ArrowRight':
+        textArea.setRangeText('', textArea.selectionStart + 1, textArea.selectionEnd + 1, 'end');
+        break;
+      case 'ArrowUp':
+        textArea.setSelectionRange(0, 0);
+        break;
+      case 'ArrowDown':
+        textArea.setSelectionRange(textArea.value.length, textArea.value.length);
+        break;
+      case 'Enter':
+        newContent = '\n';
+        break;
+      case 'Delete':
+        textArea.setRangeText('', textArea.selectionStart, textArea.selectionEnd + 1, 'end');
+        break;
+      case 'Backspace':
+        if (textArea.selectionStart !== 0) { textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end'); }
+        break;
+      default:
+        newContent = keyText;
+    }
+  }
+  textArea.setRangeText(newContent, textArea.selectionStart, textArea.selectionEnd, 'end');
+}
+
+document.addEventListener('keydown', inputKeyboardHandler);

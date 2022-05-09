@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.container__heading {
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+}
+
+.container__description {
+    color: #5e5d5d;
+    font-weight: 500;
+}
+
+.textarea {
+    display: block;
+    width: 1190px;
+    height: 250px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    resize: none;
+    color: #707070;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+    padding: 15px;
+    background: #cccccc;
+    border: 2px solid #b3b3b3;
+    box-shadow: 0 4px 0 0.04px rgb(0 0 0 / 12%);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom-width: 4px;
+    border-radius: 8px;
+}
+
+.keyboard__row {
+    display: flex;
+    gap: 10px;
+}
+
+.key {
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    text-align: left;
+    padding: 12px 12px 26px;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #707070;
+    border: 2px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 4px 0 0.04px rgb(0 0 0 / 12%);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom-width: 4px;
+    font-weight: 600;
+    width: 40px;
+    font-size: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.CapsLock {
+    width: 90px;
+}
+
+.ShiftLeft {
+    width: 126px;
+}
+
+.Backspace {
+    width: 137px;
+}
+
+.Tab {
+    width: 55px;
+}
+
+.Delete {
+    width: 44px;
+}
+
+.Enter {
+    width: 166px;
+}
+
+.ShiftRight {
+    width: 130px;
+}
+
+.Space {
+    width: 516px;
+}
+
+.key.active {
+    box-shadow: none;
+    transform: scaleY(0.9) translateY(5px);
+    color: #0071e3;
+}
+
+.key.active.Space {
+    box-shadow: none;
+    transform: scaleY(0.9) translateY(5px);
+    background-color: #0071e3;
+}
+
+.ControlRight {
+    width: 52px;
+}

@@ -279,6 +279,9 @@ function inputMouseHandler(event) {
         case 'ArrowRight':
           textArea.setRangeText('', textArea.selectionStart + 1, textArea.selectionEnd + 1, 'end');
           break;
+        case 'Space':
+          newContent = ' ';
+          break;
         case 'ArrowUp':
           textArea.setSelectionRange(0, 0);
           break;

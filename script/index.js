@@ -116,3 +116,35 @@ setTimeout(window.onload = function changeLang() {
 }, 100);
 
 document.addEventListener('keyup', langHandler);
+
+// CapsLock
+
+function capsHandler(event) {
+  const currLang = IsEng ? keyboardObjEng : keyboardObjRu;
+  const textCase = IsCaps ? 'caseDown' : 'caseUp';
+  const shiftCase = IsCaps ? 'shiftCaps' : 'shift';
+
+  if (event.type === 'keyup') {
+    if (event.code === 'CapsLock') {
+      if (IsShift) { changeLayout(currLang, shiftCase); } else { changeLayout(currLang, textCase); }
+      IsCaps = !IsCaps;
+    }
+  }
+
+  if (event.type === 'mouseup') {
+    const targetKey = event.target.closest('.key');
+    if (targetKey) {
+      if (targetKey.classList.contains('CapsLock')) {
+        if (IsShift) {
+          changeLayout(currLang, shiftCase);
+        } else {
+          changeLayout(currLang, textCase);
+        }
+        IsCaps = !IsCaps;
+      }
+    }
+  }
+}
+
+document.addEventListener('keyup', capsHandler);
+keyboardNode.addEventListener('mouseup', capsHandler);

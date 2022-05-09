@@ -257,3 +257,52 @@ function inputKeyboardHandler(event) {
 }
 
 document.addEventListener('keydown', inputKeyboardHandler);
+
+// Input by mouse
+
+function inputMouseHandler(event) {
+  event.preventDefault();
+  let newContent = '';
+  const targetKey = event.target.closest('.key');
+
+  if (targetKey) {
+    const keyText = targetKey.innerText;
+    const keyCode = targetKey.getAttribute('data');
+    if (!notInputKeys.includes(keyCode)) {
+      switch (keyCode) {
+        case 'Tab':
+          newContent = '\t';
+          break;
+        case 'ArrowLeft':
+          if (textArea.selectionStart !== 0) { textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd - 1, 'end'); }
+          break;
+        case 'ArrowRight':
+          textArea.setRangeText('', textArea.selectionStart + 1, textArea.selectionEnd + 1, 'end');
+          break;
+        case 'ArrowUp':
+          textArea.setSelectionRange(0, 0);
+          break;
+        case 'ArrowDown':
+          textArea.setSelectionRange(textArea.value.length, textArea.value.length);
+          break;
+        case 'Enter':
+          newContent = '\n';
+          break;
+        case 'Delete':
+          textArea.setRangeText('', textArea.selectionStart, textArea.selectionEnd + 1, 'end');
+          break;
+        case 'Backspace':
+          if (textArea.selectionStart !== 0) { textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end'); }
+          break;
+        default:
+          newContent = keyText;
+      }
+    }
+  }
+  textArea.setRangeText(newContent, textArea.selectionStart, textArea.selectionEnd, 'end');
+}
+
+keyboardNode.addEventListener('mousedown', inputMouseHandler);
+
+function focusTextArea() { textArea.focus(); }
+document.addEventListener('click', focusTextArea);

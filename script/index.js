@@ -31,3 +31,49 @@ function init() {
 }
 
 init();
+
+const key = document.querySelectorAll('.key');
+const keyboardNode = document.querySelector('.keyboard');
+
+// animation
+
+function clearActive(event) {
+  event.target.classList.remove('active');
+  event.target.removeEventListener('mouseleave', clearActive);
+}
+
+function animationHandler(event) {
+  event.preventDefault();
+
+  if (event.type === 'mouseup') {
+    const keyPressed = event.target.closest('.key');
+
+    if (keyPressed) keyPressed.classList.remove('active');
+  }
+
+  if (event.type === 'mousedown') {
+    const keyPressed = event.target.closest('.key');
+
+    if (keyPressed) {
+      keyPressed.classList.add('active');
+      keyPressed.addEventListener('mouseleave', clearActive);
+    }
+  }
+
+  if (event.type === 'keydown') {
+    key.forEach((el) => {
+      if (el.classList.contains(event.code)) { el.classList.add('active'); }
+    });
+  }
+
+  if (event.type === 'keyup') {
+    key.forEach((el) => {
+      if (el.classList.contains(event.code)) { el.classList.remove('active'); }
+    });
+  }
+}
+
+keyboardNode.addEventListener('mousedown', animationHandler);
+keyboardNode.addEventListener('mouseup', animationHandler);
+document.addEventListener('keydown', animationHandler);
+document.addEventListener('keyup', animationHandler);
